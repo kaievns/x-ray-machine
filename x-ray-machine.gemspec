@@ -7,6 +7,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["nemshilov@gmail.com"]
   spec.description   = "Better instrumentation/logging utility for Rails"
   spec.summary       = "Better instrumentation/logging utility for Rails. Seriously"
+  spec.homepage      = "https://github.com/MadRabbit/x-ray-machine"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
