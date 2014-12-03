@@ -4,6 +4,10 @@ module XRayMachine
       Thread.current["x_ray_machine_runtimes"] ||= Hash.new{|k,_| 0}
     end
 
+    def self.reset_runtimes
+      Thread.current["x_ray_machine_runtimes"] = nil
+    end
+
     def request(event)
       group  = event.payload[:group]
       config = XRayMachine::Config.for(group)

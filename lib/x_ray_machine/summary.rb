@@ -9,7 +9,7 @@ module XRayMachine
       end
     end
 
-    def self.messages(payload)
+    def self.messages
       XRayMachine::LogSubscriber.runtimes.map do |stream_name, duration|
         stream = XRayMachine::Config.for(stream_name)
         if stream.show_in_summary?
@@ -32,9 +32,7 @@ module XRayMachine
       module ClassMethods
         def log_process_action(payload)
           super.tap do |messages|
-            XRayMachine::Summary.messages(payload).each do |xray_message|
-              messages << xray_message
-            end
+            messages += XRayMachine::Summary.messages
           end
         end
       end

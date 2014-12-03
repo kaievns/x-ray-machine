@@ -47,7 +47,7 @@ module XRayMachine
     end
 
     def available_colors
-      used_colors = @streams.map{|o| o[:color] }.compact
+      used_colors = @streams.map{|_,o| o[:color] }.compact
       COLORS.keys - used_colors
     end
   end
@@ -71,5 +71,9 @@ module XRayMachine
     end
 
     alias :show_in_summary? :show_in_summary
+
+    def to_h
+      {title: title, color: color, show_in_summary: show_in_summary}
+    end
   end
 end
