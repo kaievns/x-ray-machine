@@ -27,20 +27,17 @@ module XRayMachine
       name = name.to_sym
 
       if config
-        @streams[name] = fill_defaults_for(config)
+        @streams[name] = fill_defaults_for(name, config)
       else
-        @streams[name] ||= generate_options_for(name)
+        @streams[name] ||= fill_defaults_for(name)
       end
     end
 
   private
 
-    def generate_options_for(name)
-      fill_defaults_for title: name.to_s.gsub(/(^|_)([a-z])/) { |m| $2.upcase }
-    end
-
-    def fill_defaults_for(config)
+    def fill_defaults_for(name, config={})
       {
+        title: name.to_s.gsub(/(^|_)([a-z])/) { |m| $2.upcase },
         color: available_colors[0],
         show_in_summary: true
       }.merge config

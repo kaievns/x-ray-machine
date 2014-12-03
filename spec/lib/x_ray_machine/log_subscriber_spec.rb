@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe XRayMachine::LogSubscriber do
   before { XRayMachine::LogSubscriber.reset_runtimes }
+  before { XRayMachine.instance_eval{ @options = nil } }
 
   describe ".runtimes" do
     subject { XRayMachine::LogSubscriber.runtimes }
@@ -35,14 +36,14 @@ describe XRayMachine::LogSubscriber do
 
     it "dumps the data in the debugging stream" do
       expect{ subject }.to change{ subscriber.debug }
-        .to("  \e[1m\e[34mExternalApi (11.0ms)\e[0m  some/query/data")
+        .to("  \e[1m\e[31mExternalApi (11.0ms)\e[0m  some/query/data")
     end
 
     it "marks things cached when the payload have a cache:true option" do
       payload[:cache] = true
 
       expect{ subject }.to change{ subscriber.debug }
-      .to("  \e[1m\e[34mExternalApi CACHE (11.0ms)\e[0m  some/query/data")
+      .to("  \e[1m\e[31mExternalApi CACHE (11.0ms)\e[0m  some/query/data")
     end
   end
 end

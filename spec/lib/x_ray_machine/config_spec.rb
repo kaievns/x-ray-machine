@@ -50,6 +50,12 @@ describe XRayMachine::Config do
       expect(colors).to eq ["\e[31m", "\e[32m", "\e[33m"]
     end
 
+    it "works great when only a color was configured" do
+      XRayMachine.config { |c| c.some_thing = {color: :yellow} }
+
+      is_expected.to eq({title: "SomeThing", color: "\e[33m", show_in_summary: true})
+    end
+
   end
 
 end
