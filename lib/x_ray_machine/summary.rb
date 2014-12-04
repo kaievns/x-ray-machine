@@ -32,7 +32,9 @@ module XRayMachine
       module ClassMethods
         def log_process_action(payload)
           super.tap do |messages|
-            messages += XRayMachine::Summary.messages
+            XRayMachine::Summary.messages.each do |xray_message|
+              messages << xray_message
+            end
           end
         end
       end
